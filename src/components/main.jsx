@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import useInView from '../hooks/useInView';
 import { Menu, X, Github, Linkedin, Mail, ExternalLink, Code, Palette, Smartphone, ArrowRight, Sparkles, Zap, Award } from 'lucide-react';
+import fotoProfile from "../assets/foto_ganteng.jpeg";
+import ecommerceImg from "../assets/e-commerce.png";
+import koreImg from "../assets/kore.png";
+import arizeImg from "../assets/arize.png";
+import levelblueImg from "../assets/levelblue.png";
 
 const Portfolio = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -129,28 +134,28 @@ const Portfolio = () => {
             title: "E-Commerce Platform",
             description: "Platform e-commerce modern dengan fitur cart, payment gateway, dan dashboard admin",
             tech: ["React", "Node.js", "PostgreSQL", "Tailwind", "Express"],
-            image: "/assets/e-commerce.png",
+            image: ecommerceImg,
             color: "from-blue-500 to-cyan-500"
         },
         {
             title: "Documentation Website KoreAI",
             description: "Website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
             tech: ["Mintlify"],
-            image: "/assets/kore.png",
+            image: koreImg,
             color: "from-purple-500 to-pink-500"
         },
         {
             title: "Documentation Website Arize",
             description: "website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
             tech: ["Mintlify"],
-            image: "/assets/arize.png",
+            image: arizeImg,
             color: "from-orange-500 to-red-500"
         },
         {
             title: "Documentation Website Levelblue",
             description: "Website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
             tech: ["Mintlify"],
-            image: "/assets/levelblue.png",
+            image: levelblueImg,
             color: "from-green-500 to-emerald-500"
         }
     ];
@@ -257,7 +262,7 @@ const Portfolio = () => {
                     <div className="mb-8 animate-float">
                         <div className="w-40 h-40 mx-auto rounded-full mb-8 shadow-2xl shadow-purple-500/50 relative overflow-hidden group border-4 border-purple-500">
                             <img
-                                src="/assets/foto_ganteng.jpeg"
+                                src={fotoProfile}
                                 alt="Profile Photo"
                                 className="w-full h-full object-cover object-bottom scale-200 group-hover:scale-225 transition-transform duration-500"
                             />
