@@ -13,7 +13,7 @@ import Landing6 from './components/landing6'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/'>
       <Routes>
         <Route path="/" element={<Portfolio />} />
         <Route path="/landing" element={<LandingPage />} />
