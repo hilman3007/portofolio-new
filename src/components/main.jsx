@@ -21,6 +21,7 @@ const Portfolio = () => {
     const [typedText, setTypedText] = useState('');
     const [cursorVisible, setCursorVisible] = useState(true);
     const [isTouch, setIsTouch] = useState(false);
+    const [isClickedRecently, setIsClickedRecently] = useState(false);
 
     const fullText = "Full Stack Developer";
 
@@ -39,15 +40,18 @@ const Portfolio = () => {
                     const y = window.scrollY || window.pageYOffset;
                     setScrolled(y > 50);
 
-                    const current = sections.find(section => {
-                        const element = document.getElementById(section);
-                        if (element) {
-                            const rect = element.getBoundingClientRect();
-                            return rect.top <= 100 && rect.bottom >= 100;
-                        }
-                        return false;
-                    });
-                    if (current) setActiveSection(current);
+                    // Only update activeSection from scroll if not recently clicked
+                    if (!isClickedRecently) {
+                        const current = sections.find(section => {
+                            const element = document.getElementById(section);
+                            if (element) {
+                                const rect = element.getBoundingClientRect();
+                                return rect.top <= 100 && rect.bottom >= 100;
+                            }
+                            return false;
+                        });
+                        if (current) setActiveSection(current);
+                    }
 
                     ticking = false;
                 });
@@ -59,7 +63,7 @@ const Portfolio = () => {
         return () => {
             window.removeEventListener('scroll', onScroll);
         };
-    }, []);
+    }, [isClickedRecently]);
 
     useEffect(() => {
         if (isTouch) {
@@ -295,6 +299,11 @@ const Portfolio = () => {
                                 <a
                                     key={item}
                                     href={`#${item}`}
+                                    onClick={() => {
+                                        setActiveSection(item);
+                                        setIsClickedRecently(true);
+                                        setTimeout(() => setIsClickedRecently(false), 1000);
+                                    }}
                                     className={`relative py-2 transition-all duration-300 capitalize ${activeSection === item ? 'text-purple-400' : 'hover:text-purple-400'}`}
                                 >
                                     {item}
@@ -436,7 +445,7 @@ const Portfolio = () => {
                         <div ref={marqueeRef} className="marquee-track flex flex-nowrap items-center gap-6 will-change-transform">
                             {[...projects, ...projects].map((project, i) => (
                                 <div key={`${project.title}-${i}`} className="min-w-[320px] md:min-w-[420px] bg-slate-800/60 border border-purple-500/20 rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-500 group card-tilt">
-                                    <div className="relative h-48 md:h-56 overflow-hidden image-glint">
+                                    <div className="relative h-64 md:h-80 overflow-hidden image-glint">
                                         <img loading="lazy" src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
 
                                         {/* Subtle overlay that appears on hover for readability */}
@@ -492,11 +501,11 @@ const Portfolio = () => {
                                 rel="noopener noreferrer"
                                 className="group relative bg-slate-800/50 md:backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2 cursor-pointer block"
                             >
-                                <div className="relative overflow-hidden h-64">
+                                <div className="relative overflow-hidden aspect-video bg-slate-900">
                                     <img
                                         src={project.image}
                                         alt={project.title}
-                                        className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700"
+                                        className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
                                     />
                                     <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-30 transition-opacity duration-500`}></div>
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent"></div>
