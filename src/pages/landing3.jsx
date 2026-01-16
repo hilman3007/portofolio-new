@@ -160,39 +160,69 @@ export default function ColorfulLanding() {
             </div>
 
             {/* Right Visual */}
-            <div className="relative">
-              <div className="relative">
-                {/* Floating Cards */}
-                <div className="relative w-full h-[500px]">
-                  {/* Card 1 */}
-                  <div className="absolute top-0 right-0 w-64 p-6 bg-white rounded-3xl shadow-2xl shadow-purple-500/20 transform hover:scale-105 transition-all rotate-3 hover:rotate-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl mb-4 flex items-center justify-center">
-                      <Award className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-bold text-gray-900 mb-2">Productivity Up</h3>
-                    <div className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">+300%</div>
+            <div className="relative flex items-center justify-center">
+              {/* Floating Cards - Mobile Grid, Desktop Absolute */}
+              <div className="grid grid-cols-1 md:hidden gap-6 w-full">
+                {/* Mobile Layout */}
+                <div className="w-full p-6 bg-white rounded-3xl shadow-2xl shadow-purple-500/20 transform hover:scale-105 transition-all">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl mb-4 flex items-center justify-center">
+                    <Award className="w-6 h-6 text-white" />
                   </div>
+                  <h3 className="font-bold text-gray-900 mb-2">Productivity Up</h3>
+                  <div className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">+300%</div>
+                </div>
 
-                  {/* Card 2 */}
-                  <div className="absolute top-32 left-0 w-64 p-6 bg-white rounded-3xl shadow-2xl shadow-cyan-500/20 transform hover:scale-105 transition-all -rotate-3 hover:-rotate-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl mb-4 flex items-center justify-center">
-                      <Clock className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-bold text-gray-900 mb-2">Time Saved</h3>
-                    <div className="text-3xl font-black bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">15hrs/week</div>
+                <div className="w-full p-6 bg-white rounded-3xl shadow-2xl shadow-cyan-500/20 transform hover:scale-105 transition-all">
+                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl mb-4 flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-white" />
                   </div>
+                  <h3 className="font-bold text-gray-900 mb-2">Time Saved</h3>
+                  <div className="text-3xl font-black bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">15hrs/week</div>
+                </div>
 
-                  {/* Card 3 */}
-                  <div className="absolute bottom-0 right-12 w-64 p-6 bg-white rounded-3xl shadow-2xl shadow-orange-500/20 transform hover:scale-105 transition-all rotate-2 hover:rotate-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl mb-4 flex items-center justify-center">
-                      <Heart className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-bold text-gray-900 mb-2">Satisfaction</h3>
-                    <div className="flex gap-1 mt-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
+                <div className="w-full p-6 bg-white rounded-3xl shadow-2xl shadow-orange-500/20 transform hover:scale-105 transition-all">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl mb-4 flex items-center justify-center">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-2">Satisfaction</h3>
+                  <div className="flex gap-1 mt-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop Layout */}
+              <div className="hidden md:block relative w-full h-[500px]">
+                {/* Card 1 */}
+                <div className="absolute top-0 right-0 w-64 p-6 bg-white rounded-3xl shadow-2xl shadow-purple-500/20 transform hover:scale-105 transition-all rotate-3 hover:rotate-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl mb-4 flex items-center justify-center">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-2">Productivity Up</h3>
+                  <div className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">+300%</div>
+                </div>
+
+                {/* Card 2 */}
+                <div className="absolute top-32 left-0 w-64 p-6 bg-white rounded-3xl shadow-2xl shadow-cyan-500/20 transform hover:scale-105 transition-all -rotate-3 hover:-rotate-6">
+                  <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl mb-4 flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-2">Time Saved</h3>
+                  <div className="text-3xl font-black bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">15hrs/week</div>
+                </div>
+
+                {/* Card 3 */}
+                <div className="absolute bottom-0 right-12 w-64 p-6 bg-white rounded-3xl shadow-2xl shadow-orange-500/20 transform hover:scale-105 transition-all rotate-2 hover:rotate-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl mb-4 flex items-center justify-center">
+                    <Heart className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-bold text-gray-900 mb-2">Satisfaction</h3>
+                  <div className="flex gap-1 mt-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -216,7 +246,7 @@ export default function ColorfulLanding() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, idx) => (
               <div 
                 key={idx}
@@ -237,7 +267,7 @@ export default function ColorfulLanding() {
       <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 rounded-3xl p-12 text-white shadow-2xl">
-            <div className="grid md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
               {[
                 { value: '10K+', label: 'Active Users' },
                 { value: '500K+', label: 'Tasks Completed' },
@@ -264,7 +294,7 @@ export default function ColorfulLanding() {
             <p className="text-xl text-gray-600">See what our happy users have to say</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, idx) => (
               <div 
                 key={idx}
@@ -300,7 +330,7 @@ export default function ColorfulLanding() {
             <p className="text-xl text-gray-600">Choose the plan that's right for you</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
                 name: 'Basic',
@@ -387,7 +417,7 @@ export default function ColorfulLanding() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">

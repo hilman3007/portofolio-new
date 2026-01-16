@@ -22,6 +22,7 @@ const Portfolio = () => {
     const [cursorVisible, setCursorVisible] = useState(true);
     const [isTouch, setIsTouch] = useState(false);
     const [isClickedRecently, setIsClickedRecently] = useState(false);
+    const [currentProjectPage, setCurrentProjectPage] = useState(0);
 
     const fullText = "Full Stack Developer";
 
@@ -171,7 +172,7 @@ const Portfolio = () => {
         };
     }, []);
 
-    const projects = [
+    const allProjects = [
         {
             title: "Documentation Website Arize",
             description: "website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
@@ -194,6 +195,22 @@ const Portfolio = () => {
             tech: ["React", "Node.js", "PostgreSQL", "Tailwind", "Express"],
             image: ecommerceImg,
             color: "from-blue-500 to-cyan-500",
+        },
+                {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing3,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing3"
+        },
+                {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing4,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing4"
         },
         {
             title: "Documentation Website KoreAI",
@@ -222,27 +239,11 @@ const Portfolio = () => {
             title: "Landing Page Website Example",
             description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
             tech: ["React", "Tailwind CSS", "JavaScript"],
-            image: landing3,
-            color: "from-purple-500 to-pink-500",
-            link: "/landing3"
-        },
-        {
-            title: "Landing Page Website Example",
-            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
-            tech: ["React", "Tailwind CSS", "JavaScript"],
-            image: landing4,
-            color: "from-purple-500 to-pink-500",
-            link: "/landing4"
-        },
-        {
-            title: "Landing Page Website Example",
-            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
-            tech: ["React", "Tailwind CSS", "JavaScript"],
             image: landing5,
             color: "from-purple-500 to-pink-500",
             link: "/landing5"
         },
-                {
+        {
             title: "Landing Page Website Example",
             description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
             tech: ["React", "Tailwind CSS", "JavaScript"],
@@ -251,6 +252,17 @@ const Portfolio = () => {
             link: "/landing6"
         }
     ];
+
+    // Only show 4 featured projects for better performance on mobile
+    const projects = allProjects.slice(0, 4);
+
+    // Pagination for all projects - show 6 per page (3 cols mobile friendly)
+    const projectsPerPage = 6;
+    const allProjectsPages = Math.ceil(allProjects.length / projectsPerPage);
+    const paginatedProjects = allProjects.slice(
+        currentProjectPage * projectsPerPage,
+        (currentProjectPage + 1) * projectsPerPage
+    );
 
     const skills = [
         { name: "Frontend Development", icon: Code, items: ["React", "Tailwind CSS", "JavaScript", "PHP"], color: "from-blue-500 to-cyan-500" },
@@ -301,7 +313,7 @@ const Portfolio = () => {
 
 
             {/* Navigation */}
-            <nav className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 md:backdrop-blur-xl md:shadow-lg shadow-purple-500/10' : 'bg-transparent'}`}>
+            <nav className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 sm:backdrop-blur-xl shadow-lg shadow-purple-500/10' : 'bg-transparent'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
                         <div className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent md:animate-pulse">
@@ -455,13 +467,13 @@ const Portfolio = () => {
             </section>
 
             {/* Billboard Section */}
-            <section id="billboard" ref={billboardRef} className={`relative py-12 px-4 transition-all duration-700 ease-out ${billboardInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <section id="billboard" ref={billboardRef} className={`relative py-8 sm:py-12 px-4 transition-all duration-700 ease-out ${billboardInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 <div className="max-w-7xl mx-auto">
                     <div className="overflow-hidden">
-                        <div ref={marqueeRef} className="marquee-track flex flex-nowrap items-center gap-6 will-change-transform">
+                        <div ref={marqueeRef} className="marquee-track flex flex-nowrap items-center gap-4 sm:gap-6 will-change-transform">
                             {[...projects, ...projects].map((project, i) => (
-                                <div key={`${project.title}-${i}`} className="min-w-[320px] md:min-w-[420px] bg-slate-800/60 border border-purple-500/20 rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-500 group card-tilt">
-                                    <div className="relative h-64 md:h-80 overflow-hidden image-glint">
+                                <div key={`${project.title}-${i}`} className="min-w-[280px] sm:min-w-[320px] md:min-w-[420px] bg-slate-800/60 border border-purple-500/20 rounded-2xl overflow-hidden shadow-lg transform transition-transform duration-500 group card-tilt">
+                                    <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden image-glint">
                                         <img loading="lazy" src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
 
                                         {/* Subtle overlay that appears on hover for readability */}
@@ -469,12 +481,12 @@ const Portfolio = () => {
 
                                         {/* Title badge on image when hovered */}
                                         <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                            <div className="bg-black/40 md:backdrop-blur-sm px-3 py-2 rounded-md text-sm text-white font-semibold">{project.title}</div>
+                                            <div className="bg-black/40 sm:backdrop-blur-sm px-3 py-2 rounded-md text-xs sm:text-sm text-white font-semibold line-clamp-1">{project.title}</div>
                                         </div>
                                     </div>
-                                    <div className="p-4">
-                                        <h4 className="font-bold text-lg text-white">{project.title}</h4>
-                                        <p className="text-sm text-gray-300 truncate">{project.description}</p>
+                                    <div className="p-3 sm:p-4">
+                                        <h4 className="font-bold text-sm sm:text-lg text-white line-clamp-1">{project.title}</h4>
+                                        <p className="text-xs sm:text-sm text-gray-300 truncate">{project.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -503,24 +515,25 @@ const Portfolio = () => {
             </section>
 
             {/* Projects Section */}
-            <section id="projects" ref={projectsRef} className={`relative py-32 px-4 transition-all duration-700 ease-out ${projectsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section id="projects" ref={projectsRef} className={`relative py-20 sm:py-32 px-4 transition-all duration-700 ease-out ${projectsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <div className="max-w-7xl mx-auto">
-                    <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-center mb-8 sm:mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                         Featured Projects
                     </h2>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {projects.map((project, index) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mb-8">
+                        {paginatedProjects.map((project, index) => (
                             <a
                                 key={index}
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative bg-slate-800/50 md:backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2 cursor-pointer block"
+                                href={project.link || '#'}
+                                target={project.link ? "_blank" : "_self"}
+                                rel={project.link ? "noopener noreferrer" : ""}
+                                className="group relative bg-slate-800/50 sm:backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2 cursor-pointer block"
                             >
                                 <div className="relative overflow-hidden aspect-video bg-slate-900">
                                     <img
                                         src={project.image}
                                         alt={project.title}
+                                        loading="lazy"
                                         className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700"
                                     />
                                     <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-30 transition-opacity duration-500`}></div>
@@ -542,30 +555,63 @@ const Portfolio = () => {
                                     </div>
                                 </div>
 
-                                <div className="p-8">
-                                    <h3 className="text-3xl font-bold mb-4 group-hover:text-purple-400 transition-colors">
+                                <div className="p-4 sm:p-6">
+                                    <h3 className="text-sm sm:text-xl font-bold mb-2 sm:mb-3 group-hover:text-purple-400 transition-colors line-clamp-2">
                                         {project.title}
                                     </h3>
-                                    <p className="text-gray-400 mb-6 leading-relaxed">{project.description}</p>
-                                    <div className="flex flex-wrap gap-2 mb-6">
-                                        {project.tech.map((tech, i) => (
+                                    <p className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4 leading-relaxed line-clamp-2">{project.description}</p>
+                                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
+                                        {project.tech.slice(0, 3).map((tech, i) => (
                                             <span
                                                 key={i}
-                                                className="bg-purple-500/20 px-4 py-2 rounded-full text-sm border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/30 transition-all duration-300 hover:scale-110"
+                                                className="bg-purple-500/20 px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs border border-purple-500/30 hover:border-purple-500 hover:bg-purple-500/30 transition-all duration-300 hover:scale-110"
                                             >
                                                 {tech}
                                             </span>
                                         ))}
                                     </div>
                                     {project.link && (
-                                        <button className="mt-6 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 flex items-center gap-2 group/btn">
-                                            View Project
-                                            <ExternalLink size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+                                        <button className="text-xs sm:text-sm px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 flex items-center gap-1 group/btn">
+                                            View
+                                            <ExternalLink size={12} className="sm:size-[14px] group-hover/btn:translate-x-0.5 transition-transform" />
                                         </button>
                                     )}
                                 </div>
                             </a>
                         ))}
+                    </div>
+
+                    {/* Pagination Controls */}
+                    <div className="flex justify-center items-center gap-2 sm:gap-4 mt-8 sm:mt-12 flex-wrap">
+                        <button
+                            onClick={() => setCurrentProjectPage(Math.max(0, currentProjectPage - 1))}
+                            disabled={currentProjectPage === 0}
+                            className="px-3 sm:px-6 py-2 sm:py-3 bg-purple-500/20 hover:bg-purple-500/40 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-all duration-300 text-xs sm:text-base"
+                        >
+                            Previous
+                        </button>
+                        <div className="flex gap-1 sm:gap-2">
+                            {Array.from({ length: allProjectsPages }).map((_, i) => (
+                                <button
+                                    key={i}
+                                    onClick={() => setCurrentProjectPage(i)}
+                                    className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-semibold transition-all duration-300 text-xs sm:text-base ${
+                                        currentProjectPage === i
+                                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white'
+                                            : 'bg-purple-500/20 hover:bg-purple-500/40 text-white'
+                                    }`}
+                                >
+                                    {i + 1}
+                                </button>
+                            ))}
+                        </div>
+                        <button
+                            onClick={() => setCurrentProjectPage(Math.min(allProjectsPages - 1, currentProjectPage + 1))}
+                            disabled={currentProjectPage === allProjectsPages - 1}
+                            className="px-3 sm:px-6 py-2 sm:py-3 bg-purple-500/20 hover:bg-purple-500/40 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg transition-all duration-300 text-xs sm:text-base"
+                        >
+                            Next
+                        </button>
                     </div>
                 </div>
             </section>
@@ -644,7 +690,7 @@ const Portfolio = () => {
                 </div>
             </footer>
 
-            <style jsx>{`
+            <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-20px); }

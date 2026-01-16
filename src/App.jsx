@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Portfolio from './components/main';
-import LandingPage from './components/landing';
-import Landing2 from './components/landing2'
-import Landing3 from './components/landing3'
-import Landing4 from './components/landing4'
-import Landing5 from './components/landing5'
-import Landing6 from './components/landing6'
+import Portfolio from './pages/main';
+import LandingPage from './pages/landing';
+import Landing2 from './pages/landing2'
+import Landing3 from './pages/landing3'
+import Landing4 from './pages/landing4'
+import Landing5 from './pages/landing5'
+import Landing6 from './pages/landing6'
 
 
 

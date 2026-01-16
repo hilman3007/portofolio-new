@@ -83,7 +83,7 @@ export default function ProductLanding() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
               {[
                 { value: '10K+', label: 'Active Users' },
                 { value: '99.9%', label: 'Uptime' },
@@ -119,7 +119,7 @@ export default function ProductLanding() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
                   icon: <Zap className="w-8 h-8" />,
@@ -184,7 +184,7 @@ export default function ProductLanding() {
               <p className="text-xl text-gray-400">Join thousands of successful companies</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
                   name: 'Sarah Chen',
@@ -237,7 +237,7 @@ export default function ProductLanding() {
               <p className="text-xl text-gray-400">Choose the perfect plan for your needs</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
                   name: 'Starter',

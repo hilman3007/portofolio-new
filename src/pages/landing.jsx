@@ -1,14 +1,17 @@
-import { ArrowRight, Check, Star, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Check, Star, Zap, Menu, X } from 'lucide-react';
 
 export default function LandingPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Header/Navbar */}
       <nav className="bg-white/80 backdrop-blur-sm shadow-sm fixed w-full z-10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Zap className="w-8 h-8 text-blue-600" />
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               Example
             </span>
           </div>
@@ -17,10 +20,34 @@ export default function LandingPage() {
             <a href="#pricing" className="text-gray-600 hover:text-blue-600 transition">Harga</a>
             <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition">Testimoni</a>
           </div>
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-            Mulai Sekarang
+          <div className="hidden md:block">
+            <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+              Mulai Sekarang
+            </button>
+          </div>
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-gray-200 bg-white">
+            <div className="px-4 py-4 space-y-4">
+              <a href="#features" className="block text-gray-600 hover:text-blue-600 transition">Fitur</a>
+              <a href="#pricing" className="block text-gray-600 hover:text-blue-600 transition">Harga</a>
+              <a href="#testimonials" className="block text-gray-600 hover:text-blue-600 transition">Testimoni</a>
+              <button className="w-full bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                Mulai Sekarang
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
@@ -40,15 +67,15 @@ export default function LandingPage() {
             Platform all-in-one yang membantu bisnis Anda tumbuh lebih cepat dengan tools yang powerful dan mudah digunakan.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 text-lg font-semibold shadow-lg hover:shadow-xl">
+            <button className="bg-blue-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg hover:bg-blue-700 transition flex items-center gap-2 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl">
               Coba Gratis 14 Hari
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 hidden sm:inline" />
             </button>
-            <button className="bg-white text-gray-700 px-8 py-4 rounded-lg hover:bg-gray-50 transition border-2 border-gray-200 text-lg font-semibold">
+            <button className="bg-white text-gray-700 px-6 md:px-8 py-3 md:py-4 rounded-lg hover:bg-gray-50 transition border-2 border-gray-200 text-base md:text-lg font-semibold">
               Lihat Demo
             </button>
           </div>
-          <div className="mt-12 flex justify-center gap-8 text-sm text-gray-600">
+          <div className="mt-12 flex justify-center gap-4 md:gap-8 text-xs md:text-sm text-gray-600 flex-wrap px-4">
             <div className="flex items-center gap-2">
               <Check className="w-5 h-5 text-green-500" />
               Tanpa Kartu Kredit

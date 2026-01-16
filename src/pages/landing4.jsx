@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Coffee, MapPin, Clock, Phone, Mail, Instagram, Facebook } from 'lucide-react';
 
 export default function CoffeeCafeLanding() {
@@ -42,7 +42,7 @@ export default function CoffeeCafeLanding() {
           <p className="text-xl md:text-2xl mb-8 text-amber-100">
             Menyajikan kopi pilihan terbaik dari berbagai daerah Indonesia
           </p>
-          <button className="bg-amber-500 hover:bg-amber-600 text-white px-10 py-4 rounded-full text-lg font-semibold transition-all transform hover:scale-105 shadow-2xl">
+          <button className="bg-amber-500 hover:bg-amber-600 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold transition-all transform hover:scale-105 shadow-2xl">
             Pesan Sekarang
           </button>
         </div>
@@ -57,7 +57,7 @@ export default function CoffeeCafeLanding() {
       {/* About Section */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold text-amber-900 mb-6">Tentang Kami</h2>
               <p className="text-gray-700 text-lg mb-4 leading-relaxed">
@@ -115,7 +115,7 @@ export default function CoffeeCafeLanding() {
             </button>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {menuItems[activeMenu].map((item, index) => (
               <div
                 key={index}
@@ -133,7 +133,7 @@ export default function CoffeeCafeLanding() {
 
       {/* Location & Hours */}
       <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center p-8 bg-amber-50 rounded-2xl">
             <MapPin className="w-12 h-12 text-amber-700 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-amber-900 mb-3">Lokasi</h3>
@@ -167,7 +167,7 @@ export default function CoffeeCafeLanding() {
       {/* Footer */}
       <footer className="bg-amber-900 text-white py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
               <h4 className="text-2xl font-bold mb-4 flex items-center gap-2">
                 <Coffee className="w-6 h-6" />

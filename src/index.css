@@ -1,1 +1,38 @@
 @import "tailwindcss";
+
+/* Image optimization for better mobile performance */
+img {
+  will-change: transform;
+}
+
+/* Lazy loading placeholder */
+img[loading="lazy"] {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+img[loading="lazy"][src] {
+  animation: none;
+  background: none;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Optimize animations on mobile */
+@media (max-width: 640px) {
+  * {
+    animation-duration: 0.3s !important;
+  }
+  
+  .group:hover {
+    transform: none;
+  }
+}

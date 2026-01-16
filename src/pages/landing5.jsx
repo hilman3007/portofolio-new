@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { Shirt, ShoppingBag, Star, MapPin, Phone, Instagram, Mail, Heart, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { Shirt, ShoppingBag, Star, MapPin, Phone, Instagram, Mail, Heart, Sparkles, Menu, X } from 'lucide-react';
 
 export default function BatikStoreLanding() {
   const [selectedCategory, setSelectedCategory] = useState('pria');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const products = {
     pria: [
@@ -35,12 +36,29 @@ export default function BatikStoreLanding() {
             <span className="text-2xl font-bold text-red-800">Batik Nusantara</span>
           </div>
           <div className="flex gap-6 items-center">
-            <a href="#" className="text-gray-700 hover:text-red-700 font-medium transition">Beranda</a>
-            <a href="#" className="text-gray-700 hover:text-red-700 font-medium transition">Koleksi</a>
-            <a href="#" className="text-gray-700 hover:text-red-700 font-medium transition">Tentang</a>
+            <a href="#" className="hidden md:inline text-gray-700 hover:text-red-700 font-medium transition">Beranda</a>
+            <a href="#" className="hidden md:inline text-gray-700 hover:text-red-700 font-medium transition">Koleksi</a>
+            <a href="#" className="hidden md:inline text-gray-700 hover:text-red-700 font-medium transition">Tentang</a>
             <ShoppingBag className="w-6 h-6 text-red-700 cursor-pointer hover:scale-110 transition" />
+            <button 
+              className="md:hidden p-2"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-gray-200 bg-white">
+            <div className="px-4 py-4 space-y-4">
+              <a href="#" className="block text-gray-700 hover:text-red-700 font-medium">Beranda</a>
+              <a href="#" className="block text-gray-700 hover:text-red-700 font-medium">Koleksi</a>
+              <a href="#" className="block text-gray-700 hover:text-red-700 font-medium">Tentang</a>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
@@ -84,7 +102,7 @@ export default function BatikStoreLanding() {
 
       {/* Features */}
       <section className="py-16 px-4 bg-white">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           {[
             { icon: '✨', title: 'Batik Asli', desc: '100% batik tulis & cap asli' },
             { icon: '🚚', title: 'Gratis Ongkir', desc: 'Untuk pembelian min. 500rb' },
@@ -102,7 +120,7 @@ export default function BatikStoreLanding() {
 
       {/* Products */}
       <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">Koleksi Pilihan</h2>
           <p className="text-center text-gray-600 mb-12 text-lg">Batik berkualitas untuk setiap momen istimewa Anda</p>
           
@@ -122,7 +140,7 @@ export default function BatikStoreLanding() {
             ))}
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {products[selectedCategory].map((product, index) => (
               <div
                 key={index}
@@ -152,9 +170,9 @@ export default function BatikStoreLanding() {
 
       {/* Testimonials */}
       <section className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">Testimoni Pelanggan</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { name: 'Ibu Siti', text: 'Batiknya bagus banget! Bahan adem dan motifnya elegan. Cocok untuk acara formal.', rating: 5 },
               { name: 'Bapak Budi', text: 'Pelayanan ramah, pengiriman cepat. Batiknya original dan kualitas premium.', rating: 5 },
@@ -176,7 +194,7 @@ export default function BatikStoreLanding() {
 
       {/* Footer */}
       <footer className="bg-gradient-to-r from-red-900 to-red-800 text-white py-12 px-4">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-6 h-6" />

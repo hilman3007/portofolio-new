@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Leaf, Heart, Shield, Zap, Star, Package, Truck, Award, Instagram, Facebook, Mail, Phone } from 'lucide-react';
 
 export default function JamuHerbalLanding() {
@@ -41,7 +41,7 @@ export default function JamuHerbalLanding() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-green-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse delay-1000"></div>
         
-        <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-12 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-white">
             <div className="inline-flex items-center gap-2 bg-green-500 bg-opacity-30 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
               <Leaf className="w-5 h-5" />
@@ -66,7 +66,7 @@ export default function JamuHerbalLanding() {
               </button>
             </div>
             
-            <div className="grid grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {[
                 { icon: <Shield className="w-8 h-8" />, text: 'BPOM Certified' },
                 { icon: <Leaf className="w-8 h-8" />, text: '100% Herbal' },
@@ -100,7 +100,7 @@ export default function JamuHerbalLanding() {
             <p className="text-xl text-gray-600">Khasiat tradisional dengan standar modern</p>
           </div>
           
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               {
                 icon: <Leaf className="w-12 h-12" />,
@@ -148,7 +148,7 @@ export default function JamuHerbalLanding() {
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">Produk Unggulan</h2>
           <p className="text-center text-gray-600 mb-12 text-lg">Pilih jamu sesuai kebutuhan kesehatan Anda</p>
           
-          <div className="grid md:grid-cols-4 gap-4 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-12">
             {Object.keys(products).map((key) => (
               <button
                 key={key}
@@ -165,12 +165,12 @@ export default function JamuHerbalLanding() {
           </div>
 
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-            <div className="grid md:grid-cols-2">
+            <div className="grid grid-cols-1 md:grid-cols-2">
               <div className="bg-gradient-to-br from-green-100 to-emerald-100 p-12 flex items-center justify-center">
                 <div className="text-9xl">{products[activeProduct].image}</div>
               </div>
               
-              <div className="p-12">
+                <div className="p-12">
                 <h3 className="text-3xl font-bold text-gray-900 mb-4">{products[activeProduct].name}</h3>
                 <p className="text-4xl font-bold text-green-600 mb-6">{products[activeProduct].price}</p>
                 
@@ -186,11 +186,11 @@ export default function JamuHerbalLanding() {
                   ))}
                 </ul>
                 
-                <div className="flex gap-4">
-                  <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl font-bold transition-all transform hover:scale-105">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button className="w-full sm:flex-1 bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 rounded-xl font-bold transition-all transform hover:scale-105">
                     Beli Sekarang
                   </button>
-                  <button className="border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-4 rounded-xl font-bold transition-all">
+                  <button className="w-full sm:w-auto border-2 border-green-600 text-green-600 hover:bg-green-50 px-6 py-3 sm:py-4 rounded-xl font-bold transition-all">
                     <Package className="w-6 h-6" />
                   </button>
                 </div>
@@ -206,7 +206,7 @@ export default function JamuHerbalLanding() {
           <h2 className="text-4xl font-bold text-center mb-4">Apa Kata Mereka?</h2>
           <p className="text-center text-green-100 mb-12 text-lg">Ribuan pelanggan puas merasakan khasiatnya</p>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 name: 'Ibu Rahma',
@@ -247,7 +247,7 @@ export default function JamuHerbalLanding() {
           </p>
           
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-8 rounded-2xl mb-8">
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <Truck className="w-12 h-12 text-green-600 mx-auto mb-3" />
                 <h4 className="font-bold text-gray-900 mb-2">Gratis Ongkir</h4>
@@ -266,7 +266,7 @@ export default function JamuHerbalLanding() {
             </div>
           </div>
           
-          <button className="bg-green-600 hover:bg-green-700 text-white px-12 py-5 rounded-full text-xl font-bold transition-all transform hover:scale-105 shadow-xl">
+          <button className="bg-green-600 hover:bg-green-700 text-white px-6 sm:px-12 py-3 sm:py-5 rounded-full text-base sm:text-xl font-bold transition-all transform hover:scale-105 shadow-xl">
             Pesan Sekarang & Dapatkan Diskon 20%
           </button>
         </div>
@@ -274,7 +274,7 @@ export default function JamuHerbalLanding() {
 
       {/* Footer */}
       <footer className="bg-gradient-to-r from-green-800 to-emerald-900 text-white py-12 px-4">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Leaf className="w-8 h-8" />
