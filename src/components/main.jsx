@@ -1,51 +1,73 @@
 import { useState, useEffect, useRef } from 'react';
 import useInView from '../hooks/useInView';
-import { Menu, X, Github, Linkedin, Mail, ExternalLink, Code, Palette, Smartphone, ArrowRight, Sparkles, Zap, Award } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Mail, ExternalLink, Code, Palette, Smartphone, ArrowRight, Sparkles, Zap, Award, Server, Database, Gamepad } from 'lucide-react';
 import fotoProfile from "../assets/foto_ganteng.jpeg";
 import ecommerceImg from "../assets/e-commerce.png";
 import koreImg from "../assets/kore.png";
 import arizeImg from "../assets/arize.png";
 import levelblueImg from "../assets/levelblue.png";
+import landing1 from "../assets/landing1.png";
+import landing2 from "../assets/landing2.png";
+import landing3 from "../assets/landing3.png";
+import landing4 from "../assets/landing4.png";
+import landing5 from "../assets/landing5.png";
+import landing6 from "../assets/landing6.png";
+
 
 const Portfolio = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [typedText, setTypedText] = useState('');
     const [cursorVisible, setCursorVisible] = useState(true);
+    const [isTouch, setIsTouch] = useState(false);
 
     const fullText = "Full Stack Developer";
 
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+        // detect touch devices and avoid mouse-heavy effects on them
+        const touch = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 0));
+        setIsTouch(!!touch);
 
-            const sections = ['home', 'about', 'projects', 'skills', 'contact'];
-            const current = sections.find(section => {
-                const element = document.getElementById(section);
-                if (element) {
-                    const rect = element.getBoundingClientRect();
-                    return rect.top <= 100 && rect.bottom >= 100;
-                }
-                return false;
-            });
-            if (current) setActiveSection(current);
+        const sections = ['home', 'about', 'projects', 'skills', 'contact'];
+        let ticking = false;
+
+        const onScroll = () => {
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(() => {
+                    const y = window.scrollY || window.pageYOffset;
+                    setScrolled(y > 50);
+
+                    const current = sections.find(section => {
+                        const element = document.getElementById(section);
+                        if (element) {
+                            const rect = element.getBoundingClientRect();
+                            return rect.top <= 100 && rect.bottom >= 100;
+                        }
+                        return false;
+                    });
+                    if (current) setActiveSection(current);
+
+                    ticking = false;
+                });
+            }
         };
 
-        const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
+        window.addEventListener('scroll', onScroll, { passive: true });
 
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('mousemove', handleMouseMove);
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('scroll', onScroll);
         };
     }, []);
 
     useEffect(() => {
+        if (isTouch) {
+            setTypedText(fullText);
+            setCursorVisible(false);
+            return;
+        }
+
         let index = 0;
         const typingInterval = setInterval(() => {
             if (index <= fullText.length) {
@@ -64,7 +86,7 @@ const Portfolio = () => {
             clearInterval(typingInterval);
             clearInterval(cursorInterval);
         };
-    }, []);
+    }, [isTouch]);
 
     // Marquee control using Web Animations API for smooth hover slowdown
     const marqueeRef = useRef(null);
@@ -131,40 +153,105 @@ const Portfolio = () => {
 
     const projects = [
         {
-            title: "E-Commerce Platform",
-            description: "Platform e-commerce modern dengan fitur cart, payment gateway, dan dashboard admin",
-            tech: ["React", "Node.js", "PostgreSQL", "Tailwind", "Express"],
-            image: ecommerceImg,
-            color: "from-blue-500 to-cyan-500"
-        },
-        {
-            title: "Documentation Website KoreAI",
-            description: "Website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
-            tech: ["Mintlify"],
-            image: koreImg,
-            color: "from-purple-500 to-pink-500"
-        },
-        {
             title: "Documentation Website Arize",
             description: "website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
             tech: ["Mintlify"],
             image: arizeImg,
-            color: "from-orange-500 to-red-500"
+            color: "from-orange-500 to-red-500",
+            link: "https://arize.com/docs/ax"
         },
         {
             title: "Documentation Website Levelblue",
             description: "Website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
             tech: ["Mintlify"],
             image: levelblueImg,
-            color: "from-green-500 to-emerald-500"
+            color: "from-green-500 to-emerald-500",
+            link: "https://docs.levelblue.com/documentation"
+        },
+        {
+            title: "E-Commerce Platform",
+            description: "Platform e-commerce modern dengan fitur cart, payment gateway, dan dashboard admin",
+            tech: ["React", "Node.js", "PostgreSQL", "Tailwind", "Express"],
+            image: ecommerceImg,
+            color: "from-blue-500 to-cyan-500",
+        },
+        {
+            title: "Documentation Website KoreAI",
+            description: "Website dokumentasi interaktif dengan navigasi dinamis dan pencarian real-time",
+            tech: ["Mintlify"],
+            image: koreImg,
+            color: "from-purple-500 to-pink-500",
+        },
+        {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing1,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing"
+        },
+        {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing2,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing2"
+        },
+        {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing3,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing3"
+        },
+        {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing4,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing4"
+        },
+        {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing5,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing5"
+        },
+                {
+            title: "Landing Page Website Example",
+            description: "landing page statis yang responsif dan menarik untuk promosi produk atau layanan",
+            tech: ["React", "Tailwind CSS", "JavaScript"],
+            image: landing6,
+            color: "from-purple-500 to-pink-500",
+            link: "/landing6"
         }
     ];
 
     const skills = [
         { name: "Frontend Development", icon: Code, items: ["React", "Tailwind CSS", "JavaScript", "PHP"], color: "from-blue-500 to-cyan-500" },
-        { name: "Backend Development", icon: Palette, items: ["Node.js", "Express", "PostgreSQL", "MySql"], color: "from-purple-500 to-pink-500" },
-        { name: "Game Development", icon: Smartphone, items: ["Godot", "Java", "C++", "Pawn"], color: "from-orange-500 to-red-500" }
+        { name: "Backend Development", icon: Server, items: ["Node.js", "Express", "PostgreSQL", "MySql"], color: "from-purple-500 to-pink-500" },
+        { name: "Game Development", icon: Gamepad, items: ["Godot", "Java", "C++", "Pawn"], color: "from-orange-500 to-red-500" }
     ];
+
+    const techIcons = {
+        "React": Code,
+        "Tailwind CSS": Zap,
+        "JavaScript": Zap,
+        "PHP": Code,
+        "Node.js": Server,
+        "Express": Server,
+        "PostgreSQL": Database,
+        "MySql": Database,
+        "Godot": Gamepad,
+        "Java": Code,
+        "C++": Code,
+        "Pawn": Code
+    };
 
     // Scroll-in animation refs
     const [homeRef, homeInView] = useInView({ threshold: 0.2 });
@@ -185,27 +272,19 @@ const Portfolio = () => {
         <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-950 text-white overflow-hidden">
             {/* Animated Background */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                <div className="hidden md:block absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl md:animate-pulse"></div>
+                <div className="hidden md:block absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl md:animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="hidden md:block absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl md:animate-pulse" style={{ animationDelay: '2s' }}></div>
             </div>
 
             {/* Custom Cursor Effect */}
-            <div
-                className="fixed w-6 h-6 border-2 border-purple-400/50 rounded-full pointer-events-none z-50 transition-transform duration-100"
-                style={{
-                    left: `${mousePosition.x}px`,
-                    top: `${mousePosition.y}px`,
-                    transform: 'translate(-50%, -50%)',
-                    mixBlendMode: 'difference'
-                }}
-            />
+
 
             {/* Navigation */}
-            <nav className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-xl shadow-lg shadow-purple-500/10' : 'bg-transparent'}`}>
+            <nav className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 md:backdrop-blur-xl md:shadow-lg shadow-purple-500/10' : 'bg-transparent'}`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-20">
-                        <div className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-pulse">
+                        <div className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent md:animate-pulse">
                             <Sparkles className="inline w-6 h-6 text-purple-400 mr-2" />
                             MyPortfolio
                         </div>
@@ -220,7 +299,7 @@ const Portfolio = () => {
                                 >
                                     {item}
                                     {activeSection === item && (
-                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 animate-pulse"></span>
+                                        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 md:animate-pulse"></span>
                                     )}
                                 </a>
                             ))}
@@ -266,7 +345,7 @@ const Portfolio = () => {
                                 alt="Profile Photo"
                                 className="w-full h-full object-cover object-bottom scale-200 group-hover:scale-225 transition-transform duration-500"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 group-hover:opacity-0 transition-opacity duration-500"></div>
+                            <div className="absolute inset-0 group-hover:opacity-0 transition-opacity duration-500"></div>
                             <div className="absolute inset-0 animate-spin-slow opacity-0 group-hover:opacity-30 transition-opacity duration-500">
                                 <div className="h-full w-full bg-gradient-conic from-transparent via-white to-transparent"></div>
                             </div>
@@ -284,19 +363,19 @@ const Portfolio = () => {
                     </div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-3 gap-8 max-w-3xl mx-auto mb-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto mb-12">
                         {stats.map((stat, index) => (
                             <div
                                 key={index}
-                                className="transform hover:scale-110 transition-all duration-300 animate-fade-in-up"
+                                className="transform hover:scale-110 transition-all duration-300 animate-fade-in-up min-w-0 text-center"
                                 style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                             >
-                                <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/20">
+                                <div className="bg-slate-800/50 md:backdrop-blur-sm p-6 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/20">
                                     <stat.icon className="w-8 h-8 mx-auto mb-2 text-purple-400" />
                                     <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                                         {stat.number}
                                     </div>
-                                    <div className="text-sm text-gray-400">{stat.label}</div>
+                                    <div className="text-sm text-gray-400 whitespace-normal">{stat.label}</div>
                                 </div>
                             </div>
                         ))}
@@ -365,7 +444,7 @@ const Portfolio = () => {
 
                                         {/* Title badge on image when hovered */}
                                         <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                            <div className="bg-black/40 backdrop-blur-sm px-3 py-2 rounded-md text-sm text-white font-semibold">{project.title}</div>
+                                            <div className="bg-black/40 md:backdrop-blur-sm px-3 py-2 rounded-md text-sm text-white font-semibold">{project.title}</div>
                                         </div>
                                     </div>
                                     <div className="p-4">
@@ -380,7 +459,7 @@ const Portfolio = () => {
             </section>
 
             {/* About Section */}
-            <section id="about" ref={aboutRef} className={`relative py-32 px-4 bg-slate-800/30 backdrop-blur-sm transition-all duration-700 ease-out ${aboutInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}` }>
+            <section id="about" ref={aboutRef} className={`relative py-32 px-4 bg-slate-800/30 backdrop-blur-sm transition-all duration-700 ease-out ${aboutInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                         About Me
@@ -406,9 +485,12 @@ const Portfolio = () => {
                     </h2>
                     <div className="grid md:grid-cols-2 gap-8">
                         {projects.map((project, index) => (
-                            <div
+                            <a
                                 key={index}
-                                className="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2"
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative bg-slate-800/50 md:backdrop-blur-sm rounded-2xl overflow-hidden border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2 cursor-pointer block"
                             >
                                 <div className="relative overflow-hidden h-64">
                                     <img
@@ -450,15 +532,21 @@ const Portfolio = () => {
                                             </span>
                                         ))}
                                     </div>
+                                    {project.link && (
+                                        <button className="mt-6 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-lg hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-105 flex items-center gap-2 group/btn">
+                                            View Project
+                                            <ExternalLink size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+                                        </button>
+                                    )}
                                 </div>
-                            </div>
+                            </a>
                         ))}
                     </div>
                 </div>
             </section>
 
             {/* Skills Section */}
-            <section id="skills" ref={skillsRef} className={`relative py-32 px-4 bg-slate-800/30 backdrop-blur-sm transition-all duration-700 ease-out ${skillsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <section id="skills" ref={skillsRef} className={`relative py-20 px-4 bg-slate-800/30 backdrop-blur-sm transition-all duration-700 ease-out ${skillsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-5xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                         Skills & Expertise
@@ -467,7 +555,7 @@ const Portfolio = () => {
                         {skills.map((skill, index) => (
                             <div
                                 key={index}
-                                className="group relative bg-slate-800/50 backdrop-blur-sm p-10 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2 overflow-hidden"
+                                className="group relative bg-slate-800/50 md:backdrop-blur-sm p-10 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 transform hover:-translate-y-2 overflow-hidden"
                             >
                                 <div className={`absolute inset-0 bg-gradient-to-br ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
 
@@ -479,15 +567,18 @@ const Portfolio = () => {
                                         {skill.name}
                                     </h3>
                                     <ul className="space-y-3">
-                                        {skill.items.map((item, i) => (
-                                            <li
-                                                key={i}
-                                                className="text-gray-400 flex items-center gap-3 group-hover:text-gray-300 transition-all duration-300 hover:translate-x-2"
-                                            >
-                                                <span className={`w-2 h-2 rounded-full bg-gradient-to-r ${skill.color}`}></span>
-                                                {item}
-                                            </li>
-                                        ))}
+                                        {skill.items.map((item, i) => {
+                                            const IconComponent = techIcons[item] || Code;
+                                            return (
+                                                <li
+                                                    key={i}
+                                                    className="text-gray-400 flex items-center gap-3 group-hover:text-gray-300 transition-all duration-300 hover:translate-x-2"
+                                                >
+                                                    <IconComponent className="w-4 h-4 text-purple-400" />
+                                                    <span>{item}</span>
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
                                 </div>
                             </div>
@@ -519,11 +610,11 @@ const Portfolio = () => {
             </section>
 
             {/* Footer */}
-            <footer ref={footerRef} className={`relative py-8 px-4 border-t border-purple-500/20 bg-slate-900/50 backdrop-blur-sm transition-all duration-700 ease-out ${footerInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+            <footer ref={footerRef} className={`relative py-8 px-4 border-t border-purple-500/20 bg-slate-900/50 md:backdrop-blur-sm transition-all duration-700 ease-out ${footerInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
                 <div className="max-w-7xl mx-auto text-center text-gray-400">
                     <p className="flex items-center justify-center gap-2">
                         <span>&copy; 2026 Hilman Nugraha. All rights reserved.</span>
-                        <Sparkles className="w-4 h-4 text-purple-400 animate-pulse" />
+                        <Sparkles className="w-4 h-4 text-purple-400 md:animate-pulse" />
                     </p>
                 </div>
             </footer>
