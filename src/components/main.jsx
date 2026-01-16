@@ -42,15 +42,31 @@ const Portfolio = () => {
 
                     // Only update activeSection from scroll if not recently clicked
                     if (!isClickedRecently) {
-                        const current = sections.find(section => {
+                        // Find section with most visibility in viewport
+                        let maxVisibility = 0;
+                        let currentSection = 'home';
+
+                        sections.forEach(section => {
                             const element = document.getElementById(section);
                             if (element) {
                                 const rect = element.getBoundingClientRect();
-                                return rect.top <= 100 && rect.bottom >= 100;
+                                const viewportHeight = window.innerHeight;
+                                
+                                // Calculate how much of the section is visible in viewport
+                                const top = Math.max(0, rect.top);
+                                const bottom = Math.min(viewportHeight, rect.bottom);
+                                const visibility = Math.max(0, bottom - top);
+
+                                if (visibility > maxVisibility) {
+                                    maxVisibility = visibility;
+                                    currentSection = section;
+                                }
                             }
-                            return false;
                         });
-                        if (current) setActiveSection(current);
+
+                        if (maxVisibility > 0) {
+                            setActiveSection(currentSection);
+                        }
                     }
 
                     ticking = false;
